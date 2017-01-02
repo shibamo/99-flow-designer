@@ -1,7 +1,7 @@
 {
   "name": "flow-designer",
-  "version": "0.0.0",
-  "license": "MIT",
+  "version": "0.0.1",
+  "license": "LGPL",
   "angular-cli": {},
   "scripts": {
     "ng": "ng",
@@ -22,6 +22,15 @@
     "@angular/platform-browser-dynamic": "^2.3.1",
     "@angular/router": "^3.3.1",
     "core-js": "^2.4.1",
+    "immutable": "^3.8.1",
+    "jquery": "^3.1.1",
+    "lodash": "^4.17.2",
+    "moment": "^2.17.1",
+    "normalizr": "^3.0.0-beta",
+    "notie": "^3.9.5",
+    "raphael": "^2.2.7",
+    "redux": "^3.6.0",
+    "reselect": "^2.5.4",
     "rxjs": "^5.0.1",
     "ts-helpers": "^1.1.1",
     "zone.js": "^0.7.2"
@@ -29,7 +38,12 @@
   "devDependencies": {
     "@angular/compiler-cli": "^2.3.1",
     "@types/jasmine": "2.5.38",
+    "@types/jquery": "^2.0.34",
+    "@types/lodash": "^4.14.44",
+    "@types/moment": "^2.13.0",
     "@types/node": "^6.0.42",
+    "@types/notie": "0.0.27",
+    "@types/raphael": "^2.1.30",
     "angular-cli": "1.0.0-beta.24",
     "codelyzer": "~2.0.0-beta.1",
     "jasmine-core": "2.5.2",

@@ -1,0 +1,134 @@
+html,
+fieldet,
+legend,
+div,
+span,
+a,
+form,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-size: 16px;
+}
+
+#TotalFlowArea {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.main-flow-area {
+  z-index: 999;
+}
+
+#MainSubjectArea {
+  height: 40px;
+  background-color: lightsalmon;
+}
+
+#MainMenuBar {
+  height: 30px;
+  background-color: lightgoldenrodyellow;
+}
+
+#MainDesignArea {
+  top: 70px;
+  left: 0px;
+  right: 0px;
+  bottom: 30px;
+  position: absolute;
+  display: flex;
+  height: auto;
+}
+
+#MainFooterArea {
+  height: 30px;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  background-color: lightsalmon;
+}
+
+#SlideToolBar {
+  float: left;
+  width: 110px;
+  border-right-color: black;
+  border-right-width: 2px;
+  border-right-style: solid;
+}
+
+#FlowFrame {
+  overflow: hidden;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+#PropertyPanel {
+  float: right;
+  width: 250px;
+  background-color: white;
+  border-left-color: rgb(0, 0, 0);
+  border-left-width: 2px;
+  border-left-style: dotted; 
+}
+
+#FlowTemplateMenu {
+  height: 35px;
+  background-color: black;
+}
+
+#FlowChartParent {
+  flex: 1;
+  position: relative;
+  overflow: auto;
+}
+
+#FlowChart {
+  height: 100%;
+}
+
+.text-note {
+  position: absolute;
+  font-style: italic;
+}
+
+#TemplateNameNote {
+  bottom: 0px;
+  right: 5px;
+}
+
+.activity-tool,
+.activity-tool-title {
+  text-align: center;
+  margin-bottom: 8px;
+  color: dimgray;
+}
+
+.activity-tool-selected {
+  font-weight: bold;
+  font-style: italic;
+  color: black;
+  >img {
+    border: 2px dotted black;
+  }
+}
+
+#InputActivityNodeName {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 70px;
+  border: 1px dotted gray;
+  background: white;
+  z-index: 1000;
+  font-family: Verdana;
+  font-size: 12px;
+  display: none;
+}
