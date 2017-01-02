@@ -5,6 +5,7 @@ import { Component, OnInit, Input, Output, OnChanges, EventEmitter,
 @Component({
   selector: 'app-simple-modal-dialog',
   exportAs: '',
+  outputs: ['visibleChange','confirmed'],
   styleUrls: ['./simple-modal-dialog.component.scss'],
   animations: [
     trigger('dialog', [
@@ -20,7 +21,9 @@ import { Component, OnInit, Input, Output, OnChanges, EventEmitter,
   template: `
   <div [@dialog] *ngIf="visible" class="app-dialog">
     <button *ngIf="closable" (click)="close()" aria-label="Close" 
-    class="app-dialog-close-btn">X</button>
+    class="app-dialog-command-close-btn">X</button>
+    <button *ngIf="closable" (click)="confirm()" aria-label="确定" 
+    class="app-dialog-command-confirm-btn">确 定</button>
     <ng-content></ng-content>
   </div>
   <div *ngIf="visible" class="app-overlay" (click)="close()"></div>  
@@ -31,6 +34,7 @@ export class SimpleModalDialogComponent implements OnInit {
   @Input() closable = true;
   @Input() visible: boolean;
   @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() confirmed: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor() { }
 
@@ -41,4 +45,8 @@ export class SimpleModalDialogComponent implements OnInit {
     this.visibleChange.emit(this.visible);
   }
 
+  confirm() {
+    this.visible = false;
+    this.confirmed.emit(true);
+  }
 }

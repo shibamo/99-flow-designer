@@ -16,7 +16,7 @@ import {
 
   <div [ngSwitch]="property.controlType" [formGroup]="formGroup">
     <!--单行文本-->
-    <input *ngSwitchCase="'text'" [formControlName]="property.guid"
+    <input *ngSwitchCase="'text'" [formControlName]="property.guid" style="width: 215px;"
             [id]="property.guid" [readonly]="property.readonly? 'readonly' :'' ">
     <!--下拉选择-->        
     <select *ngSwitchCase="'dropdown'" [id]="property.guid"  [formControlName]="property.guid">
@@ -24,7 +24,7 @@ import {
     </select>
     <!--多行文本-->
     <textarea *ngSwitchCase="'textarea'" [formControlName]="property.guid"
-            [id]="property.guid" >
+            [id]="property.guid" style="width: 215px;">
     </textarea>
     <!--未来的自定义组件-->
   </div> 

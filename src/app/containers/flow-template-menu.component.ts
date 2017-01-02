@@ -33,12 +33,17 @@ import {
   AppState,
 } from '../reducers';
 
+enum CurrentOperation{
+  import = 1,
+  export,
+}
+
 @Component({
   selector: 'app-flow-template-menu',
   template: `
   <div class="ui mini inverted compact menu">
     <a class="item">新建</a>
-    <a class="item" (click)="import()">导入</a>
+    <a class="item" (click)="import(dialog)">导入</a>
     <a class="item" (click)="export(dialog)">导出</a>
     <a class="item" >保存</a>
     <a class="item">发布</a>
@@ -47,16 +52,18 @@ import {
     <a class="item">重做</a>
     <a class="item">删除</a>
     <a class="item">自动布局</a>
-    <app-simple-modal-dialog #dialog [visible]="showDlg">
-      <textarea style="margin: 10px; height: 550px; width: 550px;"#ta
-        (keyup)="setTaValue(ta)" >{{formattedFlowData}}
+    <app-simple-modal-dialog #dialog [visible]="showDlg" (confirmed)="confirmed($event)">
+      <textarea style="margin: 8px; height: 550px; width: 558px;"#ta
+        (change)="setTaValue(ta)" >{{formattedFlowData}}
       </textarea>
     </app-simple-modal-dialog>
   </div>
   `
 })
 export class FlowTemplateMenuComponent implements OnInit {
+  private currentOperation: CurrentOperation;
   private formattedFlowData: string;
+  private taValue: string;
   private showDlg: boolean = false;
   constructor(
     @Inject(AppStore) private store: Store<AppState>) {
@@ -81,13 +88,45 @@ export class FlowTemplateMenuComponent implements OnInit {
     this.showDlg = true;
     // 似乎模板里的[visible]属性只在创建的时候生效,后续需要直接调用该属性
     dlg.visible = true; 
+    this.currentOperation = CurrentOperation.export;
   }
 
-  import(){
-
+  import(dlg: any){
+    this.formattedFlowData="请在此处填入流程定义JSON字符串";
+    this.showDlg = true;
+    dlg.visible = true; 
+    this.currentOperation = CurrentOperation.import;
   }
 
   setTaValue(ta: any){
-    console.log(ta.value);
+    this.taValue = ta.value;
+  }
+
+  confirmed() {
+    if (this.currentOperation == CurrentOperation.import) {
+      // 确认导入流程模板数据
+      let _flowData;
+      try {
+        _flowData = JSON.parse(this.taValue);
+        // console.log(_flowData);
+
+      } catch (e) {
+        notie.alert(3, `导入流程模板数据失败:${e}`, 10);
+        return;
+      }
+      console.log(_flowData);
+      this.store.dispatch(
+        FlowDataActions.populateFlowData(_flowData));
+      this.store.dispatch(
+        ActivityNodeDataActions.populateNodesData(
+          _flowData.activityNodes.nodes
+        )
+      );
+      this.store.dispatch(
+        ActivityConnectionDataActions.populateConnectionsData(
+         _flowData.activityConnections.connections
+        )
+      );
+    }
   }
 }

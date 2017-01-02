@@ -30,12 +30,20 @@
   }
 }
 
-.app-dialog-close-btn {
-  border: 0;
+.app-dialog-command-btn {
   background: none;
   color: #2d2d2d;
   position: absolute;
-  top: 8px;
-  right: 8px;
+  right: 20px;
   font-size: 1.2em;
+
+}
+.app-dialog-command-close-btn{
+  @extend .app-dialog-command-btn;
+  top: 1px;
+  border: 0;
+}
+.app-dialog-command-confirm-btn{
+  @extend .app-dialog-command-btn;
+  bottom: 2px;
 }
