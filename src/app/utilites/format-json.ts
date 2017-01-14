@@ -8,7 +8,7 @@
  * @returns {string}
  */
 export function formatJson(txt: string, compress: boolean = false) {
-  var indentChar = '    ';
+  var indentChar = '  ';
   if (/^\s*$/.test(txt)) {
     console.error('数据为空,无法格式化! ');
     return;
