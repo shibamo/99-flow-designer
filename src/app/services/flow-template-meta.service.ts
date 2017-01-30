@@ -5,7 +5,9 @@ import {
   FlowPropertyBase,
   TextboxFlowProperty,
   TextareaFlowProperty,
-  DropdownFlowProperty
+  DropdownFlowProperty,
+  RoleuserlistFlowProperty,
+  ConditionRuleManagerFlowProperty,
 } from '../models/flow-data-def';
 
 
@@ -20,6 +22,13 @@ export class FlowTemplateMetaService {
         required: true,
         readonly: false
       }),
+      new TextboxFlowProperty({
+        name: 'displayName', 
+        label: '流程显示名称',
+        guid:  '5493328f-132b-e98f-a9bc-26f86d77d5bf',
+        required: true,
+        readonly: false
+      }),      
       new TextboxFlowProperty({
         name: 'version', 
         label: '版本', 
@@ -85,7 +94,7 @@ export class FlowTemplateMetaService {
         required: true,
         readonly: true
       }),
-      new TextareaFlowProperty({
+      new RoleuserlistFlowProperty({
         name: 'roles', 
         label: '参与人员/角色', 
         guid:  'f63e59e6-024c-40fb-bffb-1c61d912cf48',
@@ -95,6 +104,14 @@ export class FlowTemplateMetaService {
       }),
     ],
     "Activity.advancedInfo":[
+      new ConditionRuleManagerFlowProperty({
+        name: 'autoRules', 
+        label: '自动规则集', 
+        guid:  '00c15b73-df35-4691-974e-a5e7ea1cc56e',
+        required: false,
+        readonly: false,
+        rows: 3,
+      }),
       new TextboxFlowProperty({
         name: 'linkForm', 
         label: '处理表单', 
@@ -133,14 +150,23 @@ export class FlowTemplateMetaService {
         readonly: false,
         options:[{text: '否', value: 0},{text: '是', value: 1}]
       }),            
-      new TextareaFlowProperty({
-        name: 'roles', 
-        label: '目标活动参与人员/角色',
-        guid:  '875c385f-6871-4921-831d-7a1b5200af6b', 
-        required: false,
-        readonly: false,
-        rows: 3,
-      }), 
+      // new TextareaFlowProperty({
+      //   name: 'roles', 
+      //   label: '目标活动参与人员/角色',
+      //   guid:  '875c385f-6871-4921-831d-7a1b5200af6b', 
+      //   required: false,
+      //   readonly: false,
+      //   rows: 3,
+      // }), 
+
+      // new RoleuserlistFlowProperty({
+      //   name: 'roles', 
+      //   label: '目标活动参与人员/角色',
+      //   guid:  '875c385f-6871-4921-831d-7a1b5200af6b', 
+      //   required: false,
+      //   readonly: false,
+      //   rows: 3,
+      // }),
     ],
     "Connection.advancedInfo":[
       new TextboxFlowProperty({

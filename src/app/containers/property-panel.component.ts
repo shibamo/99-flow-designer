@@ -57,6 +57,7 @@ enum WorkingMode {
         <a class="ui red tag label">TODO: 暂未实现</a>
       </app-tab>      
     </app-tabset>
+
     <!--活动属性页集-->
     <app-tabset *ngSwitchCase="2">
       <app-tab title="基本属性">
@@ -73,6 +74,7 @@ enum WorkingMode {
         <a class="ui red tag label">TODO: 暂未实现</a>
       </app-tab>  
     </app-tabset>
+    
     <!--连接属性页集-->
     <app-tabset *ngSwitchCase="3">
       <app-tab title="基本属性">

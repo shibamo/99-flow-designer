@@ -15,7 +15,7 @@ export const activityToolsConfig = {
               imagePath: "assets/images/flow_singleHumanActivity.png"},
             {activityType: "st-multiHumanActivity", activityToolName: "多人处理", 
               imagePath: "assets/images/flow_multiHumanActivity.png"},
-            {activityType: "st-autoActivity", activityToolName: "自动处理", 
+            {activityType: "st-autoActivity", activityToolName: "自动规则", 
               imagePath: "assets/images/flow_autoActivity.png"},
     ]},
     {name: "扩展活动集", display: "扩展活动集",

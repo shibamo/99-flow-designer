@@ -22,16 +22,20 @@
     "@angular/platform-browser-dynamic": "^2.3.1",
     "@angular/router": "^3.3.1",
     "core-js": "^2.4.1",
+    "font-awesome": "^4.7.0",
     "immutable": "^3.8.1",
     "jquery": "^3.1.1",
     "lodash": "^4.17.2",
     "moment": "^2.17.1",
+    "ng2-bootstrap": "^1.2.1",
     "normalizr": "^3.0.0-beta",
     "notie": "^3.9.5",
+    "primeng": "^2.0.0-rc.2",
     "raphael": "^2.2.7",
     "redux": "^3.6.0",
     "reselect": "^2.5.4",
     "rxjs": "^5.0.1",
+    "tether": "^1.4.0",
     "ts-helpers": "^1.1.1",
     "zone.js": "^0.7.2"
   },
@@ -55,7 +59,7 @@
     "karma-remap-istanbul": "^0.2.1",
     "protractor": "~4.0.13",
     "ts-node": "1.2.1",
-    "tslint": "3.15.1",
+    "tslint": "^4.0.0",
     "typescript": "~2.0.3"
   }
 }
