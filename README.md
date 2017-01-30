@@ -1,4 +1,7 @@
 # FlowDesigner
+A Flow Designer developed with Angular 2, Raphel, Redux ...
+一个流程模板设计器, 尚在开发中. 目前可导入导出流程定义的JSON.
+![](screenshot.gif)
 
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.24.
 
