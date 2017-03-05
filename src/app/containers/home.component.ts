@@ -7,7 +7,9 @@ import { Component, OnInit } from '@angular/core';
     <div id="MainSubjectArea" class="main-flow-area">
       EnouFlow Process Integrated Definition Environment
     </div>
-    <div id="MainMenuBar" class="main-flow-area">顶层操作菜单</div>
+    <div id="MainMenuBar" class="main-flow-area">
+    顶层操作菜单-登录/注销-设置(连接)-
+    </div>
     <div id="MainDesignArea" class="main-flow-area">
       <app-slide-tool-bar id="SlideToolBar">左侧工具栏</app-slide-tool-bar>
       <app-flow-frame id="FlowFrame">中间绘图区域</app-flow-frame>

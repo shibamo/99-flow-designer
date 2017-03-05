@@ -80,6 +80,8 @@ export interface FlowBasicInfoData {
   name: string;
   version: string;
   guid: string;
+  displayName: string;
+  code: string;
   desc: string;
   creator: PersonShortInfo;
   createTime: string;

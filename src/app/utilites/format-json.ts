@@ -13,6 +13,9 @@ export function formatJson(txt: string, compress: boolean = false) {
     console.error('数据为空,无法格式化! ');
     return;
   }
+  // console.info(txt);
+  txt = txt.replace(/\\n/g, '#x-x#'); // 将换行回车转码
+  // console.info(txt);
   try { var data = eval('(' + txt + ')'); }
   catch (e) {
     console.error('数据源语法错误,格式化失败! 错误信息: ' + e.description, 'err');

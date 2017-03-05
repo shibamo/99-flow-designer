@@ -116,3 +116,15 @@ export interface RoleTypeDTO extends DTO {
   roleTypeId: number;
   roles: RoleDTO[];
 }
+
+export interface FlowTemplateDTO extends DTO {
+  flowTemplateId?: number;
+  displayName: string;
+  version: string;
+  flowTemplateJson: string;
+  code: string;
+  indexNumber: string;
+  isVisible?: boolean;
+  isValidated?: boolean;
+  isPublished?: boolean;
+}

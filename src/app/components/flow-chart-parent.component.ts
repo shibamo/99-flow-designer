@@ -36,9 +36,9 @@ class ActivityConnectionDraw { // 节点间连线绘图对象
   static drawConnection(obj: ActivityConnectionDraw, drawingPaper: DrawingPaper) {
     // when draw the first time, need validate it 为简单起见两个节点间的同一方向连线不能超过两条
     if (!obj.element && _.filter(drawingPaper.connections, (c) => {
-      return c.obj1 == obj.obj1 && c.obj2 == obj.obj2;
+      return c.obj1 === obj.obj1 && c.obj2 === obj.obj2;
     }).length >= 2) {
-      notie.alert(3, "两个节点间的同一方向连线不能超过两条!", 3);
+      notie.alert(3, '两个节点间的同一方向连线不能超过两条!', 3);
       return null;
     }
 
@@ -47,8 +47,8 @@ class ActivityConnectionDraw { // 节点间连线绘图对象
         drawingPaper.connections.length);
     let _conIndex = _.filter(_connectionsBefore, (c) => {
       return ( // c.guid != obj.guid && 
-        ((c.obj1 == obj.obj1 && c.obj2 == obj.obj2)
-          || (c.obj1 == obj.obj2 && c.obj2 == obj.obj1)));
+        ((c.obj1 === obj.obj1 && c.obj2 === obj.obj2)
+          || (c.obj1 === obj.obj2 && c.obj2 === obj.obj1)));
     }).length;
     let pointsPair = ActivityConnectionDraw.getStartEnd(obj.obj1, obj.obj2, _conIndex);
     let _path = ActivityConnectionDraw.getConnection(pointsPair.start.x, pointsPair.start.y,
@@ -62,10 +62,10 @@ class ActivityConnectionDraw { // 节点间连线绘图对象
       obj.element.click(drawingPaper.clickProcessor.connection_click);
       obj.element.hover(
         function (e) {
-          e.currentTarget.style.cursor = "hand";
+          e.currentTarget.style.cursor = 'hand';
         },
         function (e) {
-          e.currentTarget.style.cursor = "pointer";
+          e.currentTarget.style.cursor = 'pointer';
         }
       );
       drawingPaper.connections.push(obj);
@@ -78,10 +78,10 @@ class ActivityConnectionDraw { // 节点间连线绘图对象
   };
 
   // 获取连接起始与结束对象的连线的起始Point与结束Point
-  static getStartEnd(obj1: RaphaelElement, obj2: RaphaelElement, index: number = 0): Point2Point {
-    var bb1 = obj1.getBBox(),
+  static getStartEnd(obj1: RaphaelElement, obj2: RaphaelElement, index = 0): Point2Point {
+    let bb1 = obj1.getBBox(),
       bb2 = obj2.getBBox();
-    var p = [
+    let p = [
       { x: bb1.x + bb1.width / 2, y: bb1.y - 1 }, // top
       { x: bb1.x + bb1.width / 2, y: bb1.y + bb1.height + 1 }, // bottom
       { x: bb1.x - 1, y: bb1.y + bb1.height / 2 }, // left
@@ -92,9 +92,9 @@ class ActivityConnectionDraw { // 节点间连线绘图对象
       { x: bb1.x + bb1.width + 1, y: bb1.y + bb1.height + 1 }, // bottom-right
 
       { x: bb2.x + bb2.width / 2, y: bb2.y - 1 }, // top
-      { x: bb2.x + bb2.width / 2, y: bb2.y + bb2.height + 1 },// bottom
-      { x: bb2.x - 1, y: bb2.y + bb2.height / 2 },// left
-      { x: bb2.x + bb2.width + 1, y: bb2.y + bb2.height / 2 },// right
+      { x: bb2.x + bb2.width / 2, y: bb2.y + bb2.height + 1 }, // bottom
+      { x: bb2.x - 1, y: bb2.y + bb2.height / 2 }, // left
+      { x: bb2.x + bb2.width + 1, y: bb2.y + bb2.height / 2 }, // right
       { x: bb2.x - 1, y: bb2.y - 1 }, // top-left
       { x: bb2.x + bb2.width + 1, y: bb2.y - 1 }, // top-right
       { x: bb2.x - 1, y: bb2.y + bb2.height + 1 }, // bottom-left
@@ -115,16 +115,16 @@ class ActivityConnectionDraw { // 节点间连线绘图对象
   }
 
   // 获取组成箭头的三条线段的路径数组
-  static getConnection(x1: number, y1: number, x2: number, y2: number, size: number = 10): any[] {
-    var closeAngle = 20
-    var angle = Raphael.angle(x1, y1, x2, y2); // 得到两点之间的角度
-    var aClose1 = Raphael.rad(angle - closeAngle); // 角度转换成弧度
-    var aClose2 = Raphael.rad(angle + closeAngle);
-    var x2a = x2 + Math.cos(aClose1) * size;
-    var y2a = y2 + Math.sin(aClose1) * size;
-    var x2b = x2 + Math.cos(aClose2) * size;
-    var y2b = y2 + Math.sin(aClose2) * size;
-    var result = ["M", x1, y1, "L", x2, y2, "L", x2a, y2a, "M", x2, y2, "L", x2b, y2b];
+  static getConnection(x1: number, y1: number, x2: number, y2: number, size = 10): any[] {
+    let closeAngle = 20;
+    let angle = Raphael.angle(x1, y1, x2, y2); // 得到两点之间的角度
+    let aClose1 = Raphael.rad(angle - closeAngle); // 角度转换成弧度
+    let aClose2 = Raphael.rad(angle + closeAngle);
+    let x2a = x2 + Math.cos(aClose1) * size;
+    let y2a = y2 + Math.sin(aClose1) * size;
+    let x2b = x2 + Math.cos(aClose2) * size;
+    let y2b = y2 + Math.sin(aClose2) * size;
+    let result = ['M', x1, y1, 'L', x2, y2, 'L', x2a, y2a, 'M', x2, y2, 'L', x2b, y2b];
     return result;
   }
 }
@@ -133,14 +133,13 @@ class DragProcessor { // 拖动事件处理器,用于处理 1.拖动节点; 2.�
   static drawingPaper: DrawingPaper;
   // 拖动节点开始时的事件
   drag_start(x, y, e): Object {
-    if (DragProcessor.drawingPaper.drawActivityType == '_connection') {// 连线模式
+    if (DragProcessor.drawingPaper.drawActivityType === '_connection') {// 连线模式
       this.ox = e.offsetX;
       this.oy = e.offsetY;
       this.attr({ 'stroke-width': 1, 'stroke-dasharray': '.' });
-    }
-    else {// 拖动节点模式
-      this.ox = this.attr("x");
-      this.oy = this.attr("y");
+    } else {// 拖动节点模式
+      this.ox = this.attr('x');
+      this.oy = this.attr('y');
       this.attr({ 'stroke-width': 3, 'stroke-dasharray': '-' });
     }
     return this;
@@ -148,15 +147,15 @@ class DragProcessor { // 拖动事件处理器,用于处理 1.拖动节点; 2.�
 
   // 拖动事件
   drag_move(dx, dy, x, y, e): Object {
-    if (DragProcessor.drawingPaper.drawActivityType == '_connection') {// 连线模式
+    if (DragProcessor.drawingPaper.drawActivityType === '_connection') {// 连线模式
       DragProcessor.drawingPaper.removeDrawingTempPath();
-      DragProcessor.drawingPaper.drawingTempPath = DragProcessor.drawingPaper.paper.path(["M", this.ox, this.oy, "L", e.offsetX, e.offsetY]);
+      DragProcessor.drawingPaper.drawingTempPath = 
+        DragProcessor.drawingPaper.paper.path(['M', this.ox, this.oy, 'L', e.offsetX, e.offsetY]);
       DragProcessor.drawingPaper.drawingTempPath.attr({ 'stroke-width': 2, 'stroke-dasharray': '-' });
-    }
-    else {// 拖动节点模式
+    } else {// 拖动节点模式
       let att = { x: this.ox + dx, y: this.oy + dy };
       this.attr(att); // 即时根据拖动的位移改动节点位置
-      if (!this.attr("src")) { // 非图片型的节点需要同时移动其文本位置
+      if (!this.attr('src')) { // 非图片型的节点需要同时移动其文本位置
         const txtX = att.x + 32, txtY = att.y + 20;
         DragProcessor.drawingPaper.findNodeDrawByGuid(this.data('guid')).
           textElement.attr({ x: txtX, y: txtY });
@@ -164,7 +163,7 @@ class DragProcessor { // 拖动事件处理器,用于处理 1.拖动节点; 2.�
 
       // 筛选出需要重绘的节点间连接并执行重绘
       let _connectionsNeedRedraw = _.filter(DragProcessor.drawingPaper.connections, (con) => {
-        return (con.obj2.data('guid') == this.data('guid') || con.obj1.data('guid') == this.data('guid'));
+        return (con.obj2.data('guid') === this.data('guid') || con.obj1.data('guid') === this.data('guid'));
       });
       _connectionsNeedRedraw.forEach((con) => {
         ActivityConnectionDraw.drawConnection(con, DragProcessor.drawingPaper);
@@ -175,10 +174,10 @@ class DragProcessor { // 拖动事件处理器,用于处理 1.拖动节点; 2.�
 
   // 拖动结束后的事件
   drag_end(e): Object {
-    if (DragProcessor.drawingPaper.drawActivityType == '_connection') {// 连线模式
+    if (DragProcessor.drawingPaper.drawActivityType === '_connection') {// 连线模式
       this.attr({ 'stroke-width': 1, 'stroke-dasharray': '' });
-      var _shape = _.find(DragProcessor.drawingPaper.nodeDrawElements, (_shapeEle) => {
-        var _bbox = _shapeEle.element.getBBox();
+      let _shape = _.find(DragProcessor.drawingPaper.nodeDrawElements, (_shapeEle) => {
+        let _bbox = _shapeEle.element.getBBox();
         return (_bbox.x <= e.offsetX && e.offsetX <= _bbox.x2 &&
           _bbox.y <= e.offsetY && e.offsetY <= _bbox.y2);
       });
@@ -197,18 +196,17 @@ class DragProcessor { // 拖动事件处理器,用于处理 1.拖动节点; 2.�
       }
       DragProcessor.drawingPaper.removeDrawingTempPath();
 
-    }
-    else { // 拖动节点模式
+    } else { // 拖动节点模式
       this.attr({ 'stroke-width': 1, 'stroke-dasharray': '' });
       const nodeData = DragProcessor.drawingPaper.findNodeDataByGuid(this.data('guid'));
       DragProcessor.drawingPaper.store.dispatch(ActivityNodeDataActions.UpdateNodeData(
-        Object.assign({}, nodeData, { position: [this.attr("x"), this.attr("y")] })
+        Object.assign({}, nodeData, { position: [this.attr('x'), this.attr('y')] })
       ));
       DragProcessor.drawingPaper.unselectConnection();
     }
 
     // 将画板获取焦点,否则DEL键响应失效.
-    $("#FlowChart").trigger("focus");
+    $('#FlowChart').trigger('focus');
 
     return this;
   };
@@ -253,20 +251,9 @@ class DblClickProcessor { // 双击事件处理器
 }
 
 class ActivityNodeDraw { // 节点绘图对象
-  guid: string;
-  element: RaphaelElement;
-  textElement?: RaphaelElement; // 开始结束节点无文本显示
-  drawingPaper: DrawingPaper;
-  constructor(guid: string, element: RaphaelElement, drawingPaper: DrawingPaper) {
-    this.guid = guid;
-    this.element = element;
-    this.drawingPaper = drawingPaper;
-  }
-
   static getNodeNameShortVersion(name: string) {
-    return name.length > 6 ? name.substr(0, 4) + "..." : name;
+    return name.length > 6 ? name.substr(0, 4) + '...' : name;
   }
-
   // 绘制节点
   static drawFromNodeData(nodeData: ActivityNodeData, drawingPaper: DrawingPaper): ActivityNodeDraw {
     let result: ActivityNodeDraw, ele: RaphaelElement, txtElement: RaphaelElement;
@@ -277,10 +264,10 @@ class ActivityNodeDraw { // 节点绘图对象
     const nodeNameDisplayed = ActivityNodeDraw.getNodeNameShortVersion(nodeData.name);
     switch (nodeData.type) {
       case 'st-start':
-        ele = drawingPaper.paper.image("assets/images/flow_start.png", x, y, imgWidth, imgHeight);
+        ele = drawingPaper.paper.image('assets/images/flow_start.png', x, y, imgWidth, imgHeight);
         break;
       case 'st-end':
-        ele = drawingPaper.paper.image("assets/images/flow_end.png", x, y, imgWidth, imgHeight);
+        ele = drawingPaper.paper.image('assets/images/flow_end.png', x, y, imgWidth, imgHeight);
         break;
       case 'st-singleHumanActivity':
         ele = drawingPaper.paper.rect(x, y, rectWidth, rectHeight, rectRadius);
@@ -298,24 +285,36 @@ class ActivityNodeDraw { // 节点绘图对象
         txtElement = drawingPaper.paper.text(txtX, txtY, nodeNameDisplayed);
         break;
       default:
-        console.info(`No drawing handler for type'` + nodeData.type + "'");
+        console.info(`No drawing handler for type'` + nodeData.type + '"');
         return null;
     }
 
     ele.data('guid', nodeData.guid);
     result = new ActivityNodeDraw(nodeData.guid, ele, drawingPaper);
     if (txtElement) {
-      txtElement.data("guid", nodeData.guid);
+      txtElement.data('guid', nodeData.guid);
       txtElement.dblclick(drawingPaper.dblClickProcessor.text_dbl_click);
       result.textElement = txtElement;
     }
     result.element.drag(drawingPaper.dragProcessor.drag_move, drawingPaper.dragProcessor.drag_start, drawingPaper.dragProcessor.drag_end);
     result.element.click(drawingPaper.clickProcessor.node_click);
-    result.element.hover(function (e) { e.currentTarget.style.cursor = "hand"; }, function (e) { e.currentTarget.style.cursor = "pointer"; });
+    result.element.hover(function (e) { e.currentTarget.style.cursor = 'hand'; }, function (e) { e.currentTarget.style.cursor = 'pointer'; });
     drawingPaper.nodeDrawElements.push(result);
 
     return result;
   }
+
+  constructor(guid: string, element: RaphaelElement, drawingPaper: DrawingPaper) {
+    this.guid = guid;
+    this.element = element;
+    this.drawingPaper = drawingPaper;
+  }
+
+  guid: string;
+  element: RaphaelElement;
+  textElement?: RaphaelElement; // 开始结束节点无文本显示
+  drawingPaper: DrawingPaper;
+
 }
 
 interface Point {
@@ -338,19 +337,19 @@ class DrawingPaper {
   clickProcessor: ClickProcessor = null;
   dblClickProcessor: DblClickProcessor = null;
 
-  drawActivityType: string = "_";
+  drawActivityType: string = '_';
   isNodeTextEditing: boolean = false; // 是否正在编辑节点名称的文本
   drawingTempPath: RaphaelElement = null;// 正在画的临时连接Path
   //selectedConnection :ActivityConnectionDraw = null; // 正在被选中的连接
-  selectedConnectionGuid: string = ""; // 正在被选中的连接GUID
-  selectedNodeGuid: string = ""; // 正在被选中的节点GUID
+  selectedConnectionGuid: string = ''; // 正在被选中的连接GUID
+  selectedNodeGuid: string = ''; // 正在被选中的节点GUID
 
   connectionsData: ActivityConnectionData[] = []; // 节点间连线数据对象数组
   connections: ActivityConnectionDraw[] = []; // 节点间连线绘图对象数组
   nodesData: ActivityNodeData[] = []; // 节点数据对象数组
   nodeDrawElements: ActivityNodeDraw[] = [] // 节点绘图对象数组
 
-  workflowTemplateName: string = "";
+  workflowTemplateName: string = '';
 
   // 根据节点数据对象数组和节点间连线数据对象数组绘制流程图
   render(needRedrawNodes = true, needRedrawConnections = true) {
@@ -364,11 +363,14 @@ class DrawingPaper {
     if (needRedrawConnections) { // 绘制节点间连接线与箭头
       this.clearConnections();
       _.each(this.connectionsData, (con) => {
-        ActivityConnectionDraw.drawConnection({
-          obj1: this.findNodeDrawByGuid(con.fromGuid).element,
-          obj2: this.findNodeDrawByGuid(con.toGuid).element,
-          guid: con.guid,
-        }, this);
+        if (this.findNodeDrawByGuid(con.fromGuid) &&
+          this.findNodeDrawByGuid(con.toGuid)) {
+          ActivityConnectionDraw.drawConnection({
+            obj1: this.findNodeDrawByGuid(con.fromGuid).element,
+            obj2: this.findNodeDrawByGuid(con.toGuid).element,
+            guid: con.guid,
+          }, this);
+        }
       });
     }
 
@@ -385,18 +387,18 @@ class DrawingPaper {
 
   selectConnection(guid: string) {
     this.finishNodeTextEditing(false);
-    if (guid) this.unselectNode();
+    if (guid) { this.unselectNode(); }
     this.store.dispatch(ActivityConnectionDataActions.SetCurrentConnectionData(guid));
   }
 
   decorateSelectedConnection(guid: string) {
-    if (!guid) return null;
+    if (!guid) { return null; }
 
     let _con = _.find(this.connections, { guid: guid });
     if (_con) {
       _con.element.attr({ 'stroke-dasharray': '-', stroke: 'red' });
     } else {
-      console.error("Cannot find connection " + guid);
+      console.info('Cannot find connection(maybe deleted?) :' + guid);
     }
     return _con;
   }
@@ -406,23 +408,23 @@ class DrawingPaper {
   }
 
   selectNode(guid: string) {
-    if (guid) this.unselectConnection();
+    if (guid) {this.unselectConnection();}
     this.store.dispatch(ActivityNodeDataActions.SetCurrentNodeData(guid));
   }
 
   decorateSelectedNode(guid: string): ActivityNodeDraw {
-    if (!guid) return null;
+    if (!guid) {return null;}
 
     let _node = _.find(this.nodeDrawElements, { guid: guid });
     if (_node) {
-      //this.selectedNodeElement = _node;
+      // this.selectedNodeElement = _node;
       _node.element.attr({ 'stroke-dasharray': '-' });
       let imgSrc = <string>_node.element.attr('src');
       if (imgSrc && imgSrc.indexOf('selected') < 0) {
         _node.element.attr({ src: imgSrc.replace('.png', '_selected.png') });
       }
     } else {
-      console.error("Cannot find node " + guid);
+      console.error('Cannot find node ' + guid);
     }
     return _node;
   }
@@ -432,8 +434,7 @@ class DrawingPaper {
   }
 
   addNode(x: number, y: number): ActivityNodeData {
-    if (this.drawActivityType && this.drawActivityType != '_') {
-      console.log(this.drawActivityType);
+    if (this.drawActivityType && this.drawActivityType !== '_') {
       let activityNodeData = new ActivityNodeDataObj(this.drawActivityType, [x, y]);
       let activityNodeDraw = ActivityNodeDraw.drawFromNodeData(activityNodeData, this);
       return activityNodeData;
@@ -444,7 +445,7 @@ class DrawingPaper {
   removeNode(guid: string) {
     // 需要先调用removeConnection删除进出该节点的所有连接
     let _connectionsData = _.filter(this.connectionsData, (c) => {
-      return (c.fromGuid == guid || c.toGuid == guid);
+      return (c.fromGuid === guid || c.toGuid === guid);
     });
     _.each(_connectionsData, (c) => { this.removeConnection(c.guid); });
 
@@ -495,14 +496,14 @@ class DrawingPaper {
   startNodeTextEditing(textElement: RaphaelElement) {
     const guid: string = textElement.data('guid');
     $('#InputActivityNodeName').css(
-      { left: textElement.attr('x') - 30, top: textElement.attr('y') - 10, display: "block" });
+      { left: textElement.attr('x') - 30, top: textElement.attr('y') - 10, display: 'block' });
     $('#InputActivityNodeName').val(DblClickProcessor.drawingPaper.findNodeDataByGuid(guid).name);
     const _nodeDraw: ActivityNodeDraw = DblClickProcessor.drawingPaper.findNodeDrawByGuid(guid);
 
     DblClickProcessor.drawingPaper.dblClickProcessor.currentEditingNodeGuid = guid;
     DblClickProcessor.drawingPaper.isNodeTextEditing = true;
     $('#InputActivityNodeName').keypress((e) => {// 按下回车键则确认修改,并退出编辑模式
-      if (e.keyCode == 13) {
+      if (e.keyCode === 13) {
         DblClickProcessor.drawingPaper.finishNodeTextEditing(false);
       }
     });
@@ -510,14 +511,14 @@ class DrawingPaper {
     DblClickProcessor.drawingPaper.unselectConnection();
   }
 
-  finishNodeTextEditing(cancel: boolean = true) {
+  finishNodeTextEditing(cancel = true) {
     if (this.isNodeTextEditing && !cancel) { // 非取消编辑,需要确认修改,并退出编辑模式
       const _newName = $('#InputActivityNodeName').val();
       const _guid = this.dblClickProcessor.currentEditingNodeGuid;
       const _nodeData = Object.assign({}, this.findNodeDataByGuid(_guid), { name: _newName });
       this.store.dispatch(ActivityNodeDataActions.UpdateNodeData(_nodeData));
     }
-    $('#InputActivityNodeName').css({ display: "none" });
+    $('#InputActivityNodeName').css({ display: 'none' });
     this.isNodeTextEditing = false;
   }
 }
@@ -525,29 +526,28 @@ class DrawingPaper {
 @Component({
   selector: 'app-flow-chart-parent',
   template: `
-    <div id="FlowChart" tabindex="0">
-      <span id="TemplateNameNote" class="text-note">{{drawingPaper.workflowTemplateName}}</span>
+    <div id='FlowChart' tabindex='0'>
+      <span id='TemplateNameNote' class='text-note'>{{drawingPaper.workflowTemplateName}}</span>
     </div>
-    <input id="InputActivityNodeName" type="text">
+    <input id='InputActivityNodeName' type='text'>
   `
 })
 export class FlowChartParentComponent implements OnInit {
-  private drawingPaper: DrawingPaper;
+  public drawingPaper: DrawingPaper;
 
   constructor( @Inject(AppStore) private store: Store<AppState>) {
     store.subscribe(() => this.updateStoreState());
   }
 
   updateStoreState() {
-    // console.info("Store State Updated");
     const state = this.store.getState();
     let needRedrawNodes = false, needRedrawConnections = false;
     this.drawingPaper.drawActivityType = state.activityTools.currentActivityTool;
-    if (this.drawingPaper.nodesData != state.activityDataNodes.activityNodeDatas) {
+    if (this.drawingPaper.nodesData !== state.activityDataNodes.activityNodeDatas) {
       this.drawingPaper.nodesData = state.activityDataNodes.activityNodeDatas;
       needRedrawNodes = true;
     }
-    if (this.drawingPaper.connectionsData != state.activityConnections.activityConnectionDatas) {
+    if (this.drawingPaper.connectionsData !== state.activityConnections.activityConnectionDatas) {
       this.drawingPaper.connectionsData = state.activityConnections.activityConnectionDatas;
       needRedrawConnections = true;
     }
@@ -561,7 +561,7 @@ export class FlowChartParentComponent implements OnInit {
 
   ngOnInit() {
     // 创建绘图板对象
-    let raphael = Raphael("FlowChart", $('FlowChart').width(), $('FlowChart').height());
+    let raphael = Raphael('FlowChart', $('FlowChart').width(), $('FlowChart').height());
     this.drawingPaper = DragProcessor.drawingPaper
       = ClickProcessor.drawingPaper
       = DblClickProcessor.drawingPaper
@@ -583,13 +583,13 @@ export class FlowChartParentComponent implements OnInit {
     this.updateStoreState();
 
     // DEL,ESC键的事件处理设置
-    $("#FlowChart").keydown((e) => {
+    $('#FlowChart').keydown((e) => {
       if (this.drawingPaper.selectedConnectionGuid) {// 目前有被选中的连接,
         switch (e.keyCode) {
-          case 46:// 删除键
+          case 46: // 删除键
             this.drawingPaper.removeConnection(this.drawingPaper.selectedConnectionGuid)
             break;
-          case 27:// ESC
+          case 27: // ESC
             this.drawingPaper.unselectConnection();
             break;
           default:
@@ -597,18 +597,18 @@ export class FlowChartParentComponent implements OnInit {
       }
       if (this.drawingPaper.selectedNodeGuid) {// 目前有被选中的节点
         switch (e.keyCode) {
-          case 46:// 删除键
+          case 46: // 删除键
             this.drawingPaper.removeNode(this.drawingPaper.selectedNodeGuid);
             this.drawingPaper.selectedNodeGuid = null;
             break;
-          case 27:// ESC
+          case 27: // ESC
             this.drawingPaper.unselectNode();
             break;
           default:
         }
       }
       if (this.drawingPaper.isNodeTextEditing) {// 目前有正在编辑的节点文本输入框
-        if (e.keyCode == 27) {// ESC则取消编辑
+        if (e.keyCode === 27) {// ESC则取消编辑
           this.drawingPaper.finishNodeTextEditing(true);
         }
       }
@@ -617,21 +617,19 @@ export class FlowChartParentComponent implements OnInit {
     // 在设计区点击后增加新节点或连接的操作设置
     $('#FlowChartParent').click((e) => {
       if (e.target.nodeName === 'svg') {
-        if (this.drawingPaper.drawActivityType && this.drawingPaper.drawActivityType != "_") {
-          if (this.drawingPaper.drawActivityType == '_connection') {// 增加节点间连接操作
-            //notie.alert(2,"请从处理节点开始点击",3);
-          }
-          else {// 增加节点操作
+        if (this.drawingPaper.drawActivityType && this.drawingPaper.drawActivityType !== '_') {
+          if (this.drawingPaper.drawActivityType === '_connection') {// 增加节点间连接操作
+            // notie.alert(2,'请从处理节点开始点击',3);
+          } else {// 增加节点操作
             const _nodeData = this.drawingPaper.addNode(e.offsetX, e.offsetY);
             if (_nodeData) {
               this.store.dispatch(ActivityNodeDataActions.CreateNodeData(
                 this.drawingPaper.addNode(e.offsetX, e.offsetY)));
-            } else { //不能创建节点,可能是点击空白处,则取消当前选中的活动节点和连接
-              this.store.dispatch(ActivityNodeDataActions.SetCurrentNodeData(""));
+            } else { // 不能创建节点,可能是点击空白处,则取消当前选中的活动节点和连接
+              this.store.dispatch(ActivityNodeDataActions.SetCurrentNodeData(''));
             }
           }
-        }
-        else {
+        } else {
           this.drawingPaper.unselectConnection();
           this.drawingPaper.unselectNode();
         }

@@ -1,5 +1,7 @@
-import { Component, OnInit, Input, forwardRef, 
-  EventEmitter, Output, OnChanges, SimpleChange }
+import {
+  Component, OnInit, Input, forwardRef,
+  EventEmitter, Output, OnChanges, SimpleChange
+}
   from '@angular/core';
 import {
   FormGroup, FormControl,
@@ -93,12 +95,12 @@ export class RoleUserDialogComponent
   implements OnInit, ControlValueAccessor, OnChanges {
 
   @Input() initial;
-  @Input() showDialog: boolean = true;
+  @Input() showDialog = true;
   @Output() private valueChanged = new EventEmitter<any>();
   @Output() private dialogClosed = new EventEmitter<any>();
 
   roleAndUsers: Paticipant[];
-  displayDialog: boolean = true;
+  displayDialog = true;
 
   private allUsers: UserDTO[] = [];
   private selectedUsers: UserDTO[] = [];
@@ -122,13 +124,13 @@ export class RoleUserDialogComponent
 
   ngOnChanges(changes: { [propName: string]: SimpleChange }): void {
     this.roleAndUsers = this.initial;
-    this.selectedUsers = _.filter(this.roleAndUsers, p=> {
+    this.selectedUsers = _.filter(this.roleAndUsers, p => {
       return p.PaticipantType === 'user';
-    }).map(p => {return <UserDTO>p.PaticipantObj} );
-    this.selectedRoles = _.filter(this.roleAndUsers, p=> {
+    }).map(p => { return <UserDTO>p.PaticipantObj; });
+    this.selectedRoles = _.filter(this.roleAndUsers, p => {
       return p.PaticipantType === 'role';
-    }).map(p => {return <RoleDTO>p.PaticipantObj} );  
-    if(changes["showDialog"].currentValue){
+    }).map(p => { return <RoleDTO>p.PaticipantObj; });
+    if (changes['showDialog'].currentValue) {
       this.displayDialog = true;
     }
     // console.log(changes);
@@ -162,7 +164,7 @@ export class RoleUserDialogComponent
     return _.map(role.users, 'name');
   }
 
-  confirmed(){
+  confirmed() {
     this.roleAndUsers = [
       ...(_.map(this.selectedRoles,
         role => {
@@ -192,7 +194,7 @@ export class RoleUserDialogComponent
     this.dialogClosed.emit();
   }
 
-  canceled(){
+  canceled() {
     this.dialogClosed.emit();
   }
 

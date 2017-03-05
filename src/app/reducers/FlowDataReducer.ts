@@ -26,7 +26,6 @@ function(state: FlowDataState = initialState,
     case FlowDataActions.POPULATE_FLOW_DATA:
       const _actPopulate = 
         (<FlowDataActions.PopulateFlowDataAction>action);
-      console.log(_actPopulate.flowData);
       return { 
         flowData: _actPopulate.flowData, 
         currentFlowGuid: _actPopulate.flowData.basicInfo.guid

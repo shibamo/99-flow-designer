@@ -27,6 +27,8 @@ import { Paticipant, ConditionRule, ActivityNodeData }
 
 import { FlowTemplateBackendService }
   from '../services/flow-template-backend.service';
+import { MyBase64 }
+  from '../services/webtookit-base64.service';
 
 import { AppStore } from '../app-store';
 
@@ -53,7 +55,7 @@ import {
     
     <!--将由流程引擎动态执行的C#脚本代码-->
     <textarea style="height: 100px; width: 556px;"
-      [(ngModel)]="code" ></textarea> <br/>
+      [(ngModel)]="codeDecoded" ></textarea> <br/>
 
     <!--目标角色与用户列表-->
     <p-dataList [value]="roleAndUsers" [paginator]="true" [rows]="5">
@@ -96,16 +98,18 @@ export class ConditionRuleEditorComponent implements OnInit {
 
   rule: ConditionRule;
   ruleName: string;
-  isDefault: boolean = false;
-  code: string
-  displayRoleUserDialog: boolean = false;
+  isDefault = false;
+  code: string;         // base64 encoded
+  codeDecoded: string;  // base64 decoded
+  displayRoleUserDialog = false;
   roleAndUsers: Paticipant[];
-  displayDialog: boolean = true;
+  displayDialog = true;
   connections: SelectItem[];
   selectedConnection: any;
   allActivitys: ActivityNodeData[];
 
-  constructor( @Inject(AppStore) private store: Store<AppState>, ) {
+  constructor( @Inject(AppStore) private store: Store<AppState>, 
+    private base64Service: MyBase64) {
     const _state = this.store.getState();
     this.allActivitys = _state.activityDataNodes.activityNodeDatas;
   }
@@ -118,13 +122,15 @@ export class ConditionRuleEditorComponent implements OnInit {
       this.selectedConnection = this.initialRule.connectionGuid;
       this.ruleName = this.initialRule.name;
       this.code = this.initialRule.code;
+      this.codeDecoded = this.base64Service.decode(this.code);
       this.roleAndUsers = this.initialRule.paticipants;
       this.isDefault = this.initialRule.isDefault;
     } else {
-      this.ruleName = "未命名规则" + Date.now().toString();
+      this.ruleName = '未命名规则' + Date.now().toString();
       this.isDefault = false;
-      this.code = `//规则判断与执行脚本代码, 'return true;' 代表该规则将适用.
+      this.codeDecoded = `//规则判断与执行脚本代码, 'return true;' 代表该规则将适用.
         var i = 0`;
+      this.code = this.base64Service.encode(this.codeDecoded);
     }
 
   }
@@ -138,15 +144,13 @@ export class ConditionRuleEditorComponent implements OnInit {
     const rule = this.rule;
     rule.name = this.ruleName;
     rule.isDefault = this.isDefault;
-    rule.code = this.code;
+    rule.code = this.base64Service.encode(this.codeDecoded);
     rule.connectionGuid = this.selectedConnection;
     rule.paticipants = this.roleAndUsers;
-
+    // console.info(rule);
     this.valueChanged.emit(rule);
     this.editorClosed.emit();
   }
-
-
 
   canceled() {
     this.editorClosed.emit();
@@ -166,8 +170,8 @@ export class ConditionRuleEditorComponent implements OnInit {
   }
 
   // 以下为辅助函数
-  private validate(): boolean {
-    return this.ruleName && this.code && this.selectedConnection
+  validate(): boolean {
+    return this.ruleName && this.codeDecoded && this.selectedConnection
       && this.roleAndUsers && this.roleAndUsers.length > 0;
   }
   private initConnectionsDropDown() {
@@ -182,7 +186,7 @@ export class ConditionRuleEditorComponent implements OnInit {
     this.connections.push({ label: '选择连接', value: null });
     this.connections.push(..._.map(_potentialConnections, (_conn) => {
       return {
-        label: _conn.name + " -> " +
+        label: _conn.name + ' -> ' +
         this.getActivityNodeNameFromGuid(_conn.toGuid),
         value: _conn.guid
       };
@@ -190,7 +194,7 @@ export class ConditionRuleEditorComponent implements OnInit {
   }
   private getActivityNodeNameFromGuid(guid: string): string {
     return _.find(this.allActivitys, node => {
-      return node.guid == guid;
+      return node.guid === guid;
     }).name;
   }
 }

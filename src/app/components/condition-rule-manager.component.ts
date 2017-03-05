@@ -1,11 +1,13 @@
-import { Component, OnInit, Input , Inject, forwardRef } from '@angular/core';
+import { Component, OnInit, Input, Inject, forwardRef } from '@angular/core';
 import {
   FormGroup, FormControl,
   ControlValueAccessor, NG_VALUE_ACCESSOR,
   Validator, NG_VALIDATORS,
 } from '@angular/forms';
-import { OrderListModule, DialogModule, TabViewModule, DataTableModule, 
-  ContextMenuModule, MenuItem } from 'primeng/primeng';
+import {
+  OrderListModule, DialogModule, TabViewModule, DataTableModule,
+  ContextMenuModule, MenuItem
+} from 'primeng/primeng';
 import * as _ from 'lodash';
 import { Store } from 'redux';
 
@@ -110,12 +112,12 @@ export class ConditionRuleManagerComponent
   // 缓存数组用于获取
   allActivityConnections: ActivityConnectionData[];
   rules: ConditionRule[] = [];
-  rulesToChange: ConditionRule[] = [];  
+  rulesToChange: ConditionRule[] = [];
   displayRulesDialog: boolean = false;
   displaySingleRuleDialog: boolean = false;
   menuItems: MenuItem[];
   selectedRule: ConditionRule;
-  ruleToEdit : ConditionRule;
+  ruleToEdit: ConditionRule;
 
   showDialog() {
     this.displayRulesDialog = true;
@@ -129,74 +131,82 @@ export class ConditionRuleManagerComponent
     this.propagateChange(this.rules);
   }
 
-  showDialogToAdd(){
+  showDialogToAdd() {
     this.ruleToEdit = null;
     this.displaySingleRuleDialog = true;
   }
 
-  confirm(){
+  confirm() {
     this.rulesToChange = this.rules;
     this.displayRulesDialog = false;
   }
 
-  cancel(){
+  cancel() {
     this.displayRulesDialog = false;
   }
 
-  newOrUpdateRule(rule: ConditionRule){
+  newOrUpdateRule(rule: ConditionRule) {
     let oldRuleIndex = _.findIndex(this.rules, _rule => {
       return _rule.guid == rule.guid;
     });
-    if(oldRuleIndex >=0 ) { // Replace
-      this.rules.splice(oldRuleIndex,1,rule);
+    if (oldRuleIndex >= 0) { // Replace
+      this.rules.splice(oldRuleIndex, 1, rule);
     } else { // Push to the tail
       this.rules.push(rule);
     }
     this.propagateChange(this.rules);
   }
 
-  editorClosed(){
+  editorClosed() {
     this.displaySingleRuleDialog = false;
   }
 
-  checkCodes(){
+  checkCodes() {
     notie.alert(3, "尚未实现!", 3);
   }
 
-  constructor(@Inject(AppStore) private store: Store<AppState>, ) { }
+  constructor( @Inject(AppStore) private store: Store<AppState>, ) { }
 
   ngOnInit() {
     this.menuItems = [
-      { label: '编辑', icon: 'fa-edit', command: (event) => {
-        this.ruleToEdit = this.selectedRule;
-        this.displaySingleRuleDialog = true;
-      } },
-      { label: '删除', icon: 'fa-close', command: (event) => {
-        this.rules.splice(this.rules.findIndex(rule => {
-          return rule.guid == this.selectedRule.guid;
-        }),1);
-        this.propagateChange(this.rules);
-      } },
-      { label: '上移', icon: 'fa-level-up', command: (event) => {
-        let idx = this.rules.findIndex(rule => {
-          return rule.guid == this.selectedRule.guid;
-        });
-        if(idx != 0){
-          let rule = this.rules.splice(idx,1)[0];
-          this.rules.splice(idx-1, 0, rule);
+      {
+        label: '编辑', icon: 'fa-edit', command: (event) => {
+          this.ruleToEdit = this.selectedRule;
+          this.displaySingleRuleDialog = true;
+        }
+      },
+      {
+        label: '删除', icon: 'fa-close', command: (event) => {
+          this.rules.splice(this.rules.findIndex(rule => {
+            return rule.guid == this.selectedRule.guid;
+          }), 1);
           this.propagateChange(this.rules);
         }
-      } },
-      { label: '下移', icon: 'fa-level-down', command: (event) => {
-        let idx = this.rules.findIndex(rule => {
-          return rule.guid == this.selectedRule.guid;
-        });
-        if(idx != this.rules.length-1){
-          let rule = this.rules.splice(idx,1)[0];
-          this.rules.splice(idx+1, 0, rule);
-          this.propagateChange(this.rules);
-        }        
-      } }
+      },
+      {
+        label: '上移', icon: 'fa-level-up', command: (event) => {
+          let idx = this.rules.findIndex(rule => {
+            return rule.guid == this.selectedRule.guid;
+          });
+          if (idx != 0) {
+            let rule = this.rules.splice(idx, 1)[0];
+            this.rules.splice(idx - 1, 0, rule);
+            this.propagateChange(this.rules);
+          }
+        }
+      },
+      {
+        label: '下移', icon: 'fa-level-down', command: (event) => {
+          let idx = this.rules.findIndex(rule => {
+            return rule.guid == this.selectedRule.guid;
+          });
+          if (idx != this.rules.length - 1) {
+            let rule = this.rules.splice(idx, 1)[0];
+            this.rules.splice(idx + 1, 0, rule);
+            this.propagateChange(this.rules);
+          }
+        }
+      }
     ];
 
     const _state = this.store.getState();
@@ -229,13 +239,15 @@ export class ConditionRuleManagerComponent
 
   // 以下为辅助函数
   private getConnectionNameFromGuid(guid: string): string {
-    return _.find( this.allActivityConnections, conn =>{
-      return conn.guid== guid;}).name;
+    let _conn = _.find(this.allActivityConnections, conn => {
+      return conn.guid === guid;
+    });
+    return (_conn && _conn.name) || '';
   }
 
   private getPaticipantsInfo(paticipants: Paticipant[]): string {
-    return paticipants.map(p=>p.PaticipantObj.name).reduce(
-      (prev,current)=>{return prev + current + "; "}, ""
+    return paticipants.map(p => p.PaticipantObj.name).reduce(
+      (prev, current) => { return prev + current + "; " }, ""
     );
   }
 }

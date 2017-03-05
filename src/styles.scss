@@ -80,7 +80,7 @@ body {
 }
 
 #FlowTemplateMenu {
-  height: 35px;
+  height: 28px;
   background-color: black;
 }
 
@@ -131,4 +131,12 @@ body {
   font-family: Verdana;
   font-size: 12px;
   display: none;
+}
+
+span.ui-dialog-title{ //改写PrimeNG的默认样式
+  font-size: 1.2em !important;
+}
+
+.ui-dialog.ui-widget .ui-dialog-titlebar { //改写PrimeNG的默认样式
+  padding: 0.5em 1.5em !important;
 }

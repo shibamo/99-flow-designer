@@ -18,6 +18,8 @@ import { PropertyControlService } from './services/property-control.service';
 import { OrgDataService } from './services/org-data.service';
 import { FlowTemplateBackendService } from './services/flow-template-backend.service';
 import { AppConfigService } from './services/app-config.service';
+import {NewFlowTemplateSkeletonService} from './services/new-flow-template-skeleton.service';
+import { MyBase64 } from './services/webtookit-base64.service';
 
 // 根组件
 import { AppComponent } from './app.component';
@@ -125,10 +127,12 @@ export function createStoreEx() {
   ],
   providers: [
     AppConfigService,
+    NewFlowTemplateSkeletonService,
     OrgDataService,
     { provide: AppStore, useFactory: createStoreEx },
     FlowTemplateMetaService,
     FlowTemplateBackendService,
+    MyBase64,
     PropertyControlService,
     appRoutingProviders
   ],

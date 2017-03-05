@@ -23,6 +23,13 @@ export class FlowTemplateMetaService {
         readonly: false
       }),
       new TextboxFlowProperty({
+        name: 'code', 
+        label: '流程代码',
+        guid:  '6483e386-b15b-482f-a295-76286d77d39b',
+        required: true,
+        readonly: false
+      }),      
+      new TextboxFlowProperty({
         name: 'displayName', 
         label: '流程显示名称',
         guid:  '5493328f-132b-e98f-a9bc-26f86d77d5bf',

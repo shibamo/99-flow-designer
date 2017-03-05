@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class AppConfigService {
-  private _serverAddress: string = 'http://localhost:8888/';
-  private _logCommunication: boolean = false;
+  private _serverAddress = 'http://localhost:8888/';
+  private _logCommunication = false;
 
   // 不显示Org
-  private _displayOrg: boolean = false;
+  private _displayOrg = false;
   // 不显示OrgSchema
-  private _displayOrgSchema: boolean = false;
+  private _displayOrgSchema = false;
   // 不显示BizEntitySchema
-  private _displayBizEntitySchema: boolean = false;
+  private _displayBizEntitySchema = false;
 
   constructor() { }
 
