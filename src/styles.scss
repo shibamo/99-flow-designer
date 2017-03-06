@@ -26,28 +26,32 @@ body {
   z-index: 999;
 }
 
+$MainSubjectAreaHeight : 0px;
 #MainSubjectArea {
-  height: 30px;
+  height: $MainSubjectAreaHeight;
   background-color: lightsalmon;
 }
 
+$MainMenuBarHeight : 37px;
 #MainMenuBar {
-  height: 30px;
+  height: $MainMenuBarHeight;
   background-color: lightgoldenrodyellow;
 }
 
+$MainFooterAreaHeight : 20px;
+
 #MainDesignArea {
-  top: 70px;
+  top: $MainSubjectAreaHeight + $MainMenuBarHeight;
   left: 0px;
   right: 0px;
-  bottom: 30px;
+  bottom: $MainFooterAreaHeight;
   position: absolute;
   display: flex;
   height: auto;
 }
 
 #MainFooterArea {
-  height: 30px;
+  height: $MainFooterAreaHeight;
   position: absolute;
   bottom: 0px;
   left: 0px;
@@ -100,8 +104,8 @@ body {
 }
 
 #TemplateNameNote {
-  bottom: 0px;
-  right: 5px;
+  top: 0px;
+  left: 5px;
 }
 
 .activity-tool,

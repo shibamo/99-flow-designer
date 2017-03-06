@@ -55,9 +55,9 @@ enum CurrentOperation {
   selector: 'app-flow-template-menu',
   template: `
   <div class="ui mini inverted compact menu">
-    <a class="item" (click)="create(dialog)">新建</a>
-    <a class="item" (click)="import(dialog)">导入</a>
-    <a class="item" (click)="export(dialog)">导出</a>
+    <a class="item" (click)="create()">新建</a>
+    <a class="item" (click)="import()">导入</a>
+    <a class="item" (click)="export()">导出</a>
     <a class="item" (click)="open()">打开</a>
     <a class="item" (click)="createInBackend()">提交为新版本</a>
     <a class="item" (click)="updateInBackend()">提交修改</a>
@@ -126,7 +126,7 @@ export class FlowTemplateMenuComponent implements OnInit {
     this.updateFlowDataToStore(_flowData);
   }
 
-  export(dlg: any) {
+  export() {
     const _state = this.store.getState();
     let _flowData = this.cloneFlowData();
     this.taValue = formatJson(JSON.stringify(_flowData));
@@ -134,7 +134,7 @@ export class FlowTemplateMenuComponent implements OnInit {
     this.currentOperation = CurrentOperation.export;
   }
 
-  import(dlg: any) {
+  import() {
     this.taValue = '';
     this.showDlg = true;
     this.currentOperation = CurrentOperation.import;

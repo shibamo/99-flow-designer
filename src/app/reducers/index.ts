@@ -22,7 +22,6 @@ import {
 } from './ActivityConnectionDataReducer';
 export * from './ActivityConnectionDataReducer';
 
-
 export interface AppState {
   flowData: FlowDataState;
   activityTools: ActivityToolsState;
