@@ -300,7 +300,17 @@ class ActivityNodeDraw { // 节点绘图对象
     result.element.click(drawingPaper.clickProcessor.node_click);
     result.element.hover(function (e) { e.currentTarget.style.cursor = 'hand'; }, function (e) { e.currentTarget.style.cursor = 'pointer'; });
     drawingPaper.nodeDrawElements.push(result);
-
+    // 以下为根据节点的位置自动扩张流程图绘图区域
+    if (drawingPaper.paper.width - 50 < x + 80) {
+      drawingPaper.paper.setSize(
+        drawingPaper.paper.width + 200, 
+        drawingPaper.paper.height );
+    }
+    if (drawingPaper.paper.height - 50 < y + 40) {
+      drawingPaper.paper.setSize(
+        drawingPaper.paper.width, 
+        drawingPaper.paper.height + 200);
+    }
     return result;
   }
 
@@ -373,6 +383,7 @@ class DrawingPaper {
         }
       });
     }
+
 
     this.decorateSelectedNode(this.selectedNodeGuid);
     this.decorateSelectedConnection(this.selectedConnectionGuid);
@@ -561,7 +572,8 @@ export class FlowChartParentComponent implements OnInit {
 
   ngOnInit() {
     // 创建绘图板对象
-    let raphael = Raphael('FlowChart', $('FlowChart').width(), $('FlowChart').height());
+    let raphael = Raphael('FlowChart', 
+      $('FlowChart').width(), $('FlowChart').height());
     this.drawingPaper = DragProcessor.drawingPaper
       = ClickProcessor.drawingPaper
       = DblClickProcessor.drawingPaper
