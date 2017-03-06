@@ -19,6 +19,7 @@ import { OrgDataService } from './services/org-data.service';
 import { FlowTemplateBackendService } from './services/flow-template-backend.service';
 import { AppConfigService } from './services/app-config.service';
 import {NewFlowTemplateSkeletonService} from './services/new-flow-template-skeleton.service';
+import {LogonBackendService} from './services/logon-backend.service';
 import { MyBase64 } from './services/webtookit-base64.service';
 
 // 根组件
@@ -32,6 +33,8 @@ import { FlowTemplateMenuComponent } from './containers/flow-template-menu.compo
 import { PropertyPanelComponent } from './containers/property-panel.component';
 import { TabsetComponent } from './containers/tabset.component';
 import { TabComponent } from './containers/tab.component';
+import { MainMenuComponent } from './containers/main-menu.component';
+
 
 // 功能型组件
 import { ActivityToolComponent }
@@ -102,7 +105,8 @@ export function createStoreEx() {
     ConditionRuleManagerComponent,
     RoleUserDialogComponent,
     HomeComponent,
-    ConditionRuleEditorComponent
+    ConditionRuleEditorComponent,
+    MainMenuComponent
   ],
   imports: [
     primeng.SharedModule,
@@ -132,6 +136,7 @@ export function createStoreEx() {
     { provide: AppStore, useFactory: createStoreEx },
     FlowTemplateMetaService,
     FlowTemplateBackendService,
+    LogonBackendService,
     MyBase64,
     PropertyControlService,
     appRoutingProviders
