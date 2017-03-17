@@ -26,7 +26,7 @@ import { OrgDataService } from '../services/org-data.service';
   [(visible)]="displayDialog" (onAfterHide)="afterHideDialog()">
     <p-tabView>
       <p-tabPanel header="角色列表">
-        <div class="table">
+        <div class="table" style="overflow-y: scroll; max-height:360px;">
           <table class="table table-striped table-hover table-condensed">
             <thead>
               <tr><th>姓名</th><th>英文名</th> <th>代码</th><th>用户列表</th>
@@ -47,7 +47,7 @@ import { OrgDataService } from '../services/org-data.service';
         </div>
       </p-tabPanel>
       <p-tabPanel header="用户列表">
-        <div class="table">
+        <div class="table" style="overflow-y: scroll; max-height:360px;">
           <table class="table table-striped table-hover table-condensed">
             <thead>
               <tr><th>姓名</th><th>英文名</th> <th>工号</th><th>部门</th><th>角色列表</th>
