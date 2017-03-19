@@ -11,7 +11,7 @@ import {
 import { OrderListModule, DialogModule, TabViewModule } from 'primeng/primeng';
 import * as _ from 'lodash';
 
-import { UserDTO, RoleDTO }
+import { UserDTO, RoleDTO, FlowDynamicUserDTO }
   from '../models/master-data-def';
 
 import { Paticipant } from '../models/flow-data-def';
@@ -68,6 +68,25 @@ import { OrgDataService } from '../services/org-data.service';
           </table>
         </div>
       </p-tabPanel>
+      <p-tabPanel header="流程动态用户列表">
+        <div class="table" style="overflow-y: scroll; max-height:360px;">
+          <table class="table table-striped table-hover table-condensed">
+            <thead>
+              <tr><th>名称</th><th>说明</th>
+              <th><i class="glyphicon glyphicon-ok text-success"></i></th></tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let flowDynamicUser of allFlowDynamicUsers" (click)="toggleFlowDynamicUser(flowDynamicUser)"
+              [ngClass]="{'success': isFlowDynamicUserSelected(flowDynamicUser)}" >
+                <td>{{flowDynamicUser.name}}</td>
+                <td>{{flowDynamicUser.memo}}</td>
+                <td><i class="glyphicon glyphicon-ok text-success"
+                *ngIf="isFlowDynamicUserSelected(flowDynamicUser)"></i></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </p-tabPanel>      
     </p-tabView>
 
     <div class="pull-right">
@@ -108,6 +127,9 @@ export class RoleUserDialogComponent
   private allRoles: RoleDTO[] = [];
   private selectedRoles: RoleDTO[] = [];
 
+  private allFlowDynamicUsers: FlowDynamicUserDTO[] = [];
+  private selectedFlowDynamicUsers: FlowDynamicUserDTO[] = [];
+
   constructor(private orgService: OrgDataService) { }
 
   ngOnInit() {
@@ -120,6 +142,12 @@ export class RoleUserDialogComponent
       .then(value => {
         this.allUsers = value;
       });
+
+    this.orgService.getFlowDynamicUsers().toPromise()
+      .then(value => {
+        this.allFlowDynamicUsers = value;
+        console.log(value);
+      });
   }
 
   ngOnChanges(changes: { [propName: string]: SimpleChange }): void {
@@ -127,13 +155,18 @@ export class RoleUserDialogComponent
     this.selectedUsers = _.filter(this.roleAndUsers, p => {
       return p.PaticipantType === 'user';
     }).map(p => { return <UserDTO>p.PaticipantObj; });
+
     this.selectedRoles = _.filter(this.roleAndUsers, p => {
       return p.PaticipantType === 'role';
     }).map(p => { return <RoleDTO>p.PaticipantObj; });
+
+    this.selectedFlowDynamicUsers = _.filter(this.roleAndUsers, p => {
+      return p.PaticipantType === 'dynamic';
+    }).map(p => { return <FlowDynamicUserDTO>p.PaticipantObj; });
+
     if (changes['showDialog'].currentValue) {
       this.displayDialog = true;
     }
-    // console.log(changes);
   }
 
   toggle(user: UserDTO) {
@@ -164,6 +197,21 @@ export class RoleUserDialogComponent
     return _.map(role.users, 'name');
   }
 
+  toggleFlowDynamicUser(flowDynamicUser: FlowDynamicUserDTO) {
+    if (_.find(this.selectedFlowDynamicUsers,
+      { flowDynamicUserId: flowDynamicUser.flowDynamicUserId })) {
+      _.remove(this.selectedFlowDynamicUsers,
+        { flowDynamicUserId: flowDynamicUser.flowDynamicUserId });
+    } else {
+      this.selectedFlowDynamicUsers.push(flowDynamicUser);
+    }
+  }
+
+  isFlowDynamicUserSelected(flowDynamicUser: FlowDynamicUserDTO) {
+    return _.find(this.selectedFlowDynamicUsers,
+      { flowDynamicUserId: flowDynamicUser.flowDynamicUserId });
+  }
+
   confirmed() {
     this.roleAndUsers = [
       ...(_.map(this.selectedRoles,
@@ -185,6 +233,17 @@ export class RoleUserDialogComponent
               name: user.name,
               guid: user.guid,
               userId: user.userId
+            }
+          };
+        })),
+      ...(_.map(this.selectedFlowDynamicUsers,
+        flowDynamicUser => {
+          return <Paticipant>{
+            PaticipantType: 'dynamic',
+            PaticipantObj: <FlowDynamicUserDTO>{
+              name: flowDynamicUser.name,
+              guid: flowDynamicUser.guid,
+              flowDynamicUserId: flowDynamicUser.flowDynamicUserId
             }
           };
         })),

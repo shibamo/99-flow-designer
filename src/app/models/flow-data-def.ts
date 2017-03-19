@@ -1,5 +1,6 @@
 import { genGuid } from './../utilites/gen-guid';
-import { UserDTO, RoleDTO } from './master-data-def';
+import { UserDTO, RoleDTO, FlowDynamicUserDTO }
+  from './master-data-def';
 
 export interface ActivityConnectionData { //节点间连线数据对象
   guid: string;
@@ -188,8 +189,8 @@ export class TextareaFlowProperty extends FlowPropertyBase<string> {
 }
 
 export interface Paticipant {
-  PaticipantType: string; // 'role' or 'user'
-  PaticipantObj: RoleDTO | UserDTO;
+  PaticipantType: string; // 'role' or 'user' or 'dynamic'
+  PaticipantObj: RoleDTO | UserDTO | FlowDynamicUserDTO;
 }
 
 export class RoleuserlistFlowProperty

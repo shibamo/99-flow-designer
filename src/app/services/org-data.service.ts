@@ -7,7 +7,8 @@ import {
   OrgDTO, OrgSchemaDTO,
   BizEntityDTO, BizEntitySchemaDTO,
   DepartmentDTO, RoleDTO, UserDTO, RoleTypeDTO,
-  DepartmentUserRelation, UserPositionToDepartment
+  DepartmentUserRelation, UserPositionToDepartment,
+  FlowDynamicUserDTO
 }
   from '../models/master-data-def';
 
@@ -163,6 +164,20 @@ export class OrgDataService {
       .catch(error => {
         console.error(error);
         return Observable.of<RoleDTO>(null);
+      });
+  }
+
+  getFlowDynamicUsers(): Observable<FlowDynamicUserDTO[]> {
+    return this.http
+      .get(this.appConfig.serverAddress + 'api/FlowDynamicUser',
+      { headers: this.headers })
+      .map((r: Response) => {
+        this.outputMonitorLog(r.json());
+        return r.json() as FlowDynamicUserDTO[];
+      })
+      .catch(error => {
+        console.error(error);
+        return Observable.of<FlowDynamicUserDTO[]>([]);
       });
   }
 

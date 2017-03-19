@@ -65,7 +65,7 @@ import {
           <div style="font-size:12px;float:left;margin-left:10px;">
           {{roleAndUser.PaticipantObj.name}}</div>      
           <div style="font-size:12px;float:right;margin-right:10px;">
-          {{roleAndUser.PaticipantType=='user' ? '用户' : '角色'}}</div>
+          {{roleAndUser.PaticipantType}}</div>
         </div>
       </template>
       <p-footer>

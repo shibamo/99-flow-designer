@@ -128,3 +128,12 @@ export interface FlowTemplateDTO extends DTO {
   isValidated?: boolean;
   isPublished?: boolean;
 }
+
+export interface FlowDynamicUserDTO extends DTO {
+  flowDynamicUserId: number;
+  displayName: string;
+  memo: string;
+  isVisible?: boolean;
+  isValidated?: boolean;
+  isPublished?: boolean;
+}
