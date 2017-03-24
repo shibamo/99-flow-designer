@@ -114,8 +114,7 @@ export class FlowTemplateMenuComponent implements OnInit {
     private newFlowTemplateSkeletonService:
       NewFlowTemplateSkeletonService,
     private flowTemplateBackendService:
-      FlowTemplateBackendService)
-  { }
+      FlowTemplateBackendService) {}
 
   ngOnInit() {
   }
@@ -184,8 +183,8 @@ export class FlowTemplateMenuComponent implements OnInit {
       indexNumber: '0',
     }).toPromise()
       .then(value => {
-        console.info(value);
-        if (value.flowTemplateId) { //成功创建
+        // console.info(value);
+        if (value.flowTemplateId) { // 成功创建
 
         } else {
           notie.alert(3, `保存流程模板数据失败:${value['_body']}`, 20);
@@ -206,7 +205,7 @@ export class FlowTemplateMenuComponent implements OnInit {
       indexNumber: '0',
     }).toPromise()
       .then(value => {
-        console.info(value);
+        // console.info(value);
       });
   }
 

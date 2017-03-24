@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class AppConfigService {
-  private _serverAddress = 'http://localhost:8888/';
+  private _serverAddress = 'http://' + window.location.hostname  + ':8888/' ;//'http://localhost:8888/';
   private _logCommunication = false;
 
   // 不显示Org
