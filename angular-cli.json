@@ -30,6 +30,7 @@
         "../node_modules/bootstrap/dist/js/bootstrap.js",
         "../node_modules/guid/guid.js"        
       ],
+      "environmentSource": "environments/environment.ts",
       "environments": {
         "source": "environments/environment.ts",
         "dev": "environments/environment.ts",

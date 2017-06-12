@@ -41,6 +41,7 @@
     "zone.js": "^0.7.2"
   },
   "devDependencies": {
+    "@angular/cli": "^1.1.1",
     "@angular/compiler-cli": "^2.3.1",
     "@types/base64-js": "^1.2.5",
     "@types/jasmine": "2.5.38",
@@ -50,7 +51,6 @@
     "@types/node": "^6.0.42",
     "@types/notie": "0.0.27",
     "@types/raphael": "^2.1.30",
-    "angular-cli": "1.0.0-beta.24",
     "codelyzer": "~2.0.0-beta.1",
     "jasmine-core": "2.5.2",
     "jasmine-spec-reporter": "2.5.0",
@@ -59,7 +59,7 @@
     "karma-cli": "^1.0.1",
     "karma-jasmine": "^1.0.2",
     "karma-remap-istanbul": "^0.2.1",
-    "protractor": "~4.0.13",
+    "protractor": "^5.1.2",
     "ts-node": "1.2.1",
     "tslint": "^4.0.0",
     "typescript": "~2.0.3"
