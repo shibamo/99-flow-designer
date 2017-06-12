@@ -36,12 +36,10 @@ export class MainMenuComponent implements OnInit {
   ngOnInit() {
   }
 
-  logon(){
-
+  logon() {
   }
 
-  logoff(){
-
+  logoff() {
   }
 
 }

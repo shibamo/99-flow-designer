@@ -108,7 +108,7 @@ export class ConditionRuleEditorComponent implements OnInit {
   selectedConnection: any;
   allActivitys: ActivityNodeData[];
 
-  constructor( @Inject(AppStore) private store: Store<AppState>, 
+  constructor( @Inject(AppStore) private store: Store<AppState>,
     private base64Service: MyBase64) {
     const _state = this.store.getState();
     this.allActivitys = _state.activityDataNodes.activityNodeDatas;
