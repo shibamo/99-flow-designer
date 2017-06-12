@@ -5,7 +5,7 @@ export class FlowDesignerPage {
     return browser.get('/');
   }
 
-  getParagraphText() {
-    return element(by.css('app-root h1')).getText();
+  getAppTitleText() {
+    return element(by.id('app-title-text')).getText();
   }
 }

@@ -16,7 +16,7 @@ import { LogonRequestInfo, UserInfo } from '../models/authentication-data-def';
     <span class="text-center" 
       style="width: 100%; font-size: large; line-height: 2em; color: #eeeeee">
       <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-      流程模板定义器 
+      <span id="app-title-text">流程模板定义器/Flow Template Designer</span>
       
     </span>
     <div class="right menu">
